@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html layout:decorate='~{admin/fragments/layout}'>
+<head>
+	<title>Application Settings</title>
+</head>
+<body th:with="activeTopMenu='app-settings',activeLeftMenu='app-settings',bodyTopTitle='Application Settings'">
+<section layout:fragment='content-section' id='dashboardSection'>
+<div class='card card-primary card-outline'>
+	<div class='card-header'>
+		<h3 class='card-title'>
+			<i class='fas fa-cogs'></i>
+			Preferences
+		</h3>
+	</div>
+	<div class='card-body'>
+	<form id='prefForm'>	
+        <div class='form-group'>
+        <th:block th:each="entity : ${entityCol}">
+          <div class='custom-control custom-checkbox'>
+			<input class='custom-control-input' type='checkbox' value='true' th:checked='${entity.checked}'
+				th:attr="id=${entity.keyToAccess}, name='txt-' + ${entity.recordId}"/>
+            	<label th:attr="for=${entity.keyToAccess}" class='custom-control-label link' th:text='${entity.title}'></label>
+          </div>
+          </th:block>
+        </div>
+	</form>
+	</div>
+	<div class='card-footer'>
+		<div>
+			<button type='button' class='btn btn-sm btn-success' id='btnAjaxUpdate'>
+				<i class='far fa-save'></i> Save
+			</button>
+		</div>
+	</div>
+</div>
+</section>
+<th:block layout:fragment='script'>
+<script type='text/javascript'>
+$(document).ready(function(){
+	$.ajaxSetup({
+	    beforeSend:function(){
+	    	$('#btnAjaxUpdate').addClass('disabled').html("<i class='fas fa-sync-alt fa-spin'></i> Saving");
+	    },
+	    complete:function(){
+	    	$('#btnAjaxUpdate').removeClass('disabled').html("<i class='far fa-save'></i> Save");
+	    }
+	});
+
+	$('#btnAjaxUpdate').click(function(){
+		$.post("/ajax/updateSettings.html", $("#prefForm" ).serialize(), function() {
+			toastr.info('Site preferences have been updated');	
+		}).fail(function(xhr, status, error){
+			toastr.error("Error " + xhr.responseText);	
+		});;
+	});
+});
+</script>
+</th:block>
+</body>
+</html>

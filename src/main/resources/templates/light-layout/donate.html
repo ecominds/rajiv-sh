@@ -1,0 +1,122 @@
+
+<!DOCTYPE html>
+<html layout:decorate='~{fragments/layout}'>
+<head>
+	<title>Donate</title>
+</head>
+<body th:with="activeTopMenu='donate'">
+<div class='section' layout:fragment='content'>
+<div class='container'>
+	<div class='row' id='single-item-wrapper'>
+		<div class='col-md-10'>
+			<div class='section-title text-left'>
+				<h2 class='title'>Donate to help People Around the World</h2>
+				<p class='sub-title'>
+					
+				</p>
+			</div>
+		</div>
+		<div class='col-md-8'>
+			<div class="col-md-12 col-sm-6 col-xs-12">
+				<div class="panel panel-primary">
+					<div class="panel-heading clearfix">
+						<i class="icon-calendar"></i>
+						<h3 class="panel-title">Your donation is others inspiration.</h3>
+					</div>
+						<form action='/charge' method='POST' id='checkout-form'>
+						    <input type='hidden' th:value='${amount}' name='amount' />
+						    <label>Price:<span th:text='${amount/100}' /></label>
+						    <!-- NOTE: data-key/data-amount/data-currency will be rendered by Thymeleaf -->
+						    <script src='https://checkout.stripe.com/checkout.js'
+						       class='stripe-button'
+						       th:attr='data-key=${stripePublicKey}',
+						       data-name='Green Guardian'
+						       data-description='Your donation is others inspiration'
+						       data-image ='/images/plus-green/logo.png'
+						       data-locale='auto'
+						       data-zip-code='false'>
+						   </script>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+		<aside id="aside" class="col-md-4">
+			<!-- causes widget -->
+			<div class="widget">
+				<h3 class="widget-title">Latest Donations</h3>
+
+				<!-- single causes -->
+				<div class="widget-causes">
+					<a href="#">
+						<div class="widget-img">
+							<img src="./img/widget-1.jpg" alt="">
+						</div>
+						<div class="widget-content">
+							Possit nostro aeterno eu vis, ut cum quem reque
+							<div class="causes-progress">
+								<div class="causes-progress-bar">
+									<div style="width: 64%;"></div>
+								</div>
+							</div>
+						</div>
+					</a>
+					<div>
+						<span class="causes-raised">Raised: <strong>52.000$</strong></span> -
+						<span class="causes-goal">Goal: <strong>90.000$</strong></span>
+					</div>
+				</div>
+				<!-- /single causes -->
+
+				<!-- single causes -->
+				<div class="widget-causes">
+					<a href="#">
+						<div class="widget-img">
+							<img src="./img/widget-2.jpg" alt="">
+						</div>
+						<div class="widget-content">
+							Vix fuisset tibique facilisis cu. Justo accusata ius at
+							<div class="causes-progress">
+								<div class="causes-progress-bar">
+									<div style="width: 75%;"></div>
+								</div>
+							</div>
+						</div>
+					</a>
+					<div>
+						<span class="causes-raised">Raised: <strong>52.000$</strong></span> -
+						<span class="causes-goal">Goal: <strong>90.000$</strong></span>
+					</div>
+				</div>
+				<!-- /single causes -->
+
+				<!-- single causes -->
+				<div class="widget-causes">
+					<a href="#">
+						<div class="widget-img">
+							<img src="./img/widget-3.jpg" alt="">
+						</div>
+						<div class="widget-content">
+							Possit nostro aeterno eu vis, ut cum quem reque
+							<div class="causes-progress">
+								<div class="causes-progress-bar">
+									<div style="width: 53%;"></div>
+								</div>
+							</div>
+						</div>
+					</a>
+					<div>
+						<span class="causes-raised">Raised: <strong>52.000$</strong></span> -
+						<span class="causes-goal">Goal: <strong>90.000$</strong></span>
+					</div>
+				</div>
+				<!-- /single causes -->
+			</div>
+			<!-- causes widget -->
+		</aside>
+		<!-- /ASIDE -->
+	</div>
+	<div class='clearfix' style='margin-top:10px;'></div>	
+</div>	
+</body>
+</html>

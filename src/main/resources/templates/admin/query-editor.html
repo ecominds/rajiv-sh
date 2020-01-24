@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html layout:decorate='~{admin/fragments/layout}'>
+<head>
+<title>Query Editor</title>
+</head>
+<body th:with="activeTopMenu='queryEditor',activeLeftMenu='queryEditor',bodyTopTitle='Query Editor'">
+<section layout:fragment='content-section' id='dashboardSection'>
+<div class='card card-primary card-outline'>
+	<div class='card-header'>
+		<h3 class='card-title'>
+			<i class='fas fa-edit'></i> Execute Query
+		</h3>
+		<div class='card-tools'>
+          	<button type='button' class='btn btn-sm btn-success' id='btnAjaxUpdate'>
+				<i class='fas fa-play-circle'></i> Run
+			</button>
+        </div>
+	</div>
+	<div class='card-body pb-0 pt-2 pl-3 pr-3'>
+	<form id='frmQuery'>
+		<div class='form-group'>
+			<textarea id='compose-textarea' class='form-control'
+					name='queryTxt' placeholder='Enter your SQL Query here'
+					style='height: 200px' th:text='${uiUtils}'></textarea>
+		</div>
+	</form>	
+	</div>
+</div>
+<div class='card card-success card-outline' id='queryExecuteResult' style='display:none;'>
+	<div class='card-header'>
+		<h3 class='card-title'>
+			<i class='fas fa-edit'></i> Result
+		</h3>
+		<div class='card-tools'>
+          	<button type='button' class='btn btn-tool' data-card-widget='collapse'>
+             	<i class='fas fa-minus'></i>
+             </button>
+        </div>
+	</div>
+	<div class='card-body pb-2 pt-2 pl-3 pr-3'></div>
+</div>
+</section>
+<th:block layout:fragment='script'>
+<script type='text/javascript'>
+$(document).ready(function(){
+	$.ajaxSetup({
+	    beforeSend:function(){
+	    	$('#btnAjaxUpdate').addClass('disabled').html("<i class='fas fa-sync-alt fa-spin'></i> Executing");
+	    	$('#queryExecuteResult').hide();
+	    	$('#queryExecuteResult .card-body').html('');
+	    },
+	    complete:function(){
+	    	$('#queryExecuteResult').show();
+	    	$('#btnAjaxUpdate').removeClass('disabled').html("<i class='fas fa-play-circle'></i> Run");
+	    }
+	});
+
+	$('#btnAjaxUpdate').click(function(){
+		$.post("/ajax/executeQuery.html", $("#frmQuery" ).serialize(), function(respData) {
+			$('#queryExecuteResult .card-body').html("Data " + respData);
+		}).fail(function(xhr, status, error){
+			$('#queryExecuteResult .card-body').html("Error " + xhr.responseText);
+		});
+	});
+});
+</script>
+</th:block>
+</body>
+</html>

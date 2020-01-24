@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html layout:decorate='~{light-layout/fragments/layout}'>
+<head>
+	<title th:text="${entity.Name}"></title>
+</head>
+<body th:with="activeTopMenu='projectInfo'">
+<div id='featuredProjects' class='section' layout:fragment='content'>
+<div class='container' >
+	<div class='row' id='single-item-wrapper'>
+		<div class='col-md-9'>
+			<div class='section-title text-left'>
+				<h2 class='title' th:text="${entity.Name}"></h2>
+			</div>
+		</div>
+		<section id="main">
+			<!-- article -->
+			<div class="article causes-details">
+				<!-- article img -->
+				<div class="article-img col-md-6">
+					<img th:src="@{../images/project-info/{path}(path=${entity.ImgUrlPath})}" th:title="${entity.Name}"/>
+				</div>
+				<div class="article-content col-md-6">
+					<h3 class="article-title" th:text="${entity.ShortDesc}"></h3>
+					<ul class="article-meta">
+						<li th:text="${#dates.format(entity.StartDate, 'dd-MMM-yyyy')}"></li>
+						<li th:text="@{By {path}(path=${entity.ProjectInitiator})}"></li>
+					</ul>
+					<p th:text="${entity.LongDesc}"></p>
+					<div class="col-md-12 clearfix">
+						<div class="progress-bar-wrapper">
+							<div class="progress">
+							  <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar" 
+							  	aria-valuenow="68" aria-valuemin="0" aria-valuemax="100" th:style="@{width:} + ${entity.completed} + @{%}">
+							    <span class="" th:text="${entity.completed} + @{%}"></span>
+							  </div>
+							  
+							</div>
+							<div>
+								<span class="causes-raised">
+									Raised: <strong th:text="${entity.fundRaised}"></strong>
+									<i class='fa fa-dollar'></i>
+								</span>
+								<span class="pull-right">
+									Goal: <strong><span th:text="${entity.targetAmt}"></span></strong>
+									<i class='fa fa-dollar'></i>
+								</span>
+							</div>
+						</div>
+					</div>
+					<div class='col-md-4'>
+						<button class='btn btn-sm btn-success stripe-donate-btn' 
+							th:attr='data-key=${entity.RecordId}'>Donate Now !</button>
+					</div>
+				</div>
+			</div>
+		</section>
+	</div>
+</div>
+</div>
+<th:block layout:fragment="script">
+<script type='text/javascript'>
+$(document).ready(function(){
+	activateStripePopup('.stripe-donate-btn');
+});
+</script>
+</th:block>
+</body>
+</html>

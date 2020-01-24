@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html layout:decorate='~{admin/fragments/layout}'>
+<head>
+	<title>Admin Portal</title>
+</head>
+<body th:with="activeTopMenu='home',activeLeftMenu='index',bodyTopTitle='Admin Portal'">
+<section layout:fragment='content-section' id='dashboardSection'>
+<div class='row'>
+       <div class='col-12 col-sm-6 col-md-3'>
+         <div class='info-box'>
+           <span class='info-box-icon bg-info elevation-1'><i class='fas fa-cog'></i></span>
+
+           <div class='info-box-content'>
+             <span class='info-box-text'>Projects</span>
+             <span class='info-box-number'>
+               10
+             </span>
+           </div>
+           <!-- /.info-box-content -->
+         </div>
+         <!-- /.info-box -->
+       </div>
+       <!-- /.col -->
+       <div class='col-12 col-sm-6 col-md-3'>
+         <div class='info-box mb-3'>
+           <span class='info-box-icon bg-danger elevation-1'><i class='fas fa-thumbs-up'></i></span>
+
+           <div class='info-box-content'>
+             <span class='info-box-text'>Donations</span>
+             <span class='info-box-number'>85,410 $</span>
+           </div>
+           <!-- /.info-box-content -->
+         </div>
+         <!-- /.info-box -->
+       </div>
+       <!-- /.col -->
+
+       <!-- fix for small devices only -->
+       <div class='clearfix hidden-md-up'></div>
+
+       <div class='col-12 col-sm-6 col-md-3'>
+         <div class='info-box mb-3'>
+           <span class='info-box-icon bg-success elevation-1'><i class='fas fa-shopping-cart'></i></span>
+
+           <div class='info-box-content'>
+             <span class='info-box-text'>Sponsors</span>
+             <span class='info-box-number'>760</span>
+           </div>
+           <!-- /.info-box-content -->
+         </div>
+         <!-- /.info-box -->
+       </div>
+       <!-- /.col -->
+       <div class='col-12 col-sm-6 col-md-3'>
+         <div class='info-box mb-3'>
+           <span class='info-box-icon bg-warning elevation-1'><i class='fas fa-users'></i></span>
+
+           <div class='info-box-content'>
+             <span class='info-box-text'>Volunteers </span>
+             <span class='info-box-number'>2,000</span>
+           </div>
+           <!-- /.info-box-content -->
+         </div>
+         <!-- /.info-box -->
+       </div>
+       <!-- /.col -->
+     </div>
+
+<div class='container-fluid'>
+	<div class='row'>
+		<div class='col-md-6 pl-0'>
+		 <div class='card'>
+		   <div class='card-header border-0'>
+		     <div class='d-flex justify-content-between'>
+		       	<h3 class='card-title'>Interested Sponsors</h3>
+		       	<div class='card-tools'>
+					<button type='button' class='btn btn-tool' data-card-widget='collapse'>
+						<i class='fas fa-minus'></i>
+	                </button>
+				</div>
+		     </div>
+		   </div>
+		   <div class='card-body'>
+		     <div class='d-flex'>
+		       <p class='d-flex flex-column'>
+		         <span class='text-bold text-lg'>820</span>
+		         <span>Visitors Over Time</span>
+		       </p>
+		       <p class='ml-auto d-flex flex-column text-right'>
+		         <span class='text-success'>
+		           <i class='fas fa-arrow-up'></i> 12.5%
+		         </span>
+		         <span class='text-muted'>Since last week</span>
+		       </p>
+		     </div>
+		
+		     <div class='position-relative mb-4'>
+		       <canvas id='visitors-chart' height='200'></canvas>
+		     </div>
+		
+		     <div class='d-flex flex-row justify-content-end'>
+		       <span class='mr-2'>
+		         <i class='fas fa-square text-primary'></i> This Week
+		       </span>
+		
+		       <span>
+		         <i class='fas fa-square text-gray'></i> Last Week
+		       </span>
+		     </div>
+		   </div>
+		 </div>
+		</div>
+		<div class='col-md-6 pr-0'>
+		 	<div class='card'>
+		    <div class='card-header border-0'>
+		    	<div class='d-flex justify-content-between'>
+					<h3 class='card-title'>Funds Donated by Sponsors</h3>
+		        	<div class='card-tools'>
+						<button type='button' class='btn btn-tool' data-card-widget='collapse'>
+							<i class='fas fa-minus'></i>
+		                </button>
+					</div>
+		      	</div>
+		    </div>
+		    <div class='card-body'>
+		      <div class='d-flex'>
+		        <p class='d-flex flex-column'>
+		          <span class='text-bold text-lg'>$18,230.00</span>
+		          <span>Donations Over Time</span>
+		        </p>
+		        <p class='ml-auto d-flex flex-column text-right'>
+		          <span class='text-success'>
+		            <i class='fas fa-arrow-up'></i> 33.1%
+		          </span>
+		          <span class='text-muted'>Since last month</span>
+		        </p>
+		      </div>
+		      <div class='position-relative mb-4'>
+		        <canvas id='sales-chart' height='200'></canvas>
+		      </div>
+		
+		      <div class='d-flex flex-row justify-content-end'>
+		        <span class='mr-2'>
+		          <i class='fas fa-square text-primary'></i> This year
+		        </span>
+		
+		        <span>
+		          <i class='fas fa-square text-gray'></i> Last year
+		        </span>
+		      </div>
+		    </div>
+		  </div>
+		</div>
+	</div>
+</div>
+</section>
+<th:block layout:fragment='script'>
+<script type='text/javascript' th:src='@{/js/Chart.min.js}'></script>
+<script type='text/javascript' th:src='@{/js/admin-dashboard.js}'></script>
+</th:block>
+</body>
+</html>

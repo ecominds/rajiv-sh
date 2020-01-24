@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html layout:decorate='~{admin/fragments/layout}'>
+<head>
+<title th:text='${pageBodyTitle}'></title>
+</head>
+<body th:with="activeTopMenu='manageProjects',bodyTopTitle='Manage Project'">
+<section layout:fragment='content-section' id='pageFormWrapper'>
+	<div class='card card-info'>
+	  <div class='card-header'>
+	    <h3 class='card-title'>
+	    		<i class="fas fa-edit"></i>
+	    		[[${pageBodyTitle}]]
+	    </h3>
+	  </div>
+	  <div class='card-body'>
+	         <form role='form'>
+	           <div class='row'>
+	           	<div class='col-sm-3'>
+	               <div class='form-group'>
+	                 <label>Project Initiator</label>
+	                 <input class='form-control' name='projectInitiator' 
+	                 	placeholder='Project Initiator' th:value='${entity.projectInitiator}'>
+	               </div>
+	             </div>
+	             <div class='col-sm-4'>
+	               <!-- text input -->
+	               <div class='form-group'>
+	                 <label>Project Name</label>
+	                 <input type='hidden' name='recordId' th:value='${entity.recordId}'/>
+	                 <input class='form-control' name='name' placeholder='Name' th:value='${entity.name}'>
+	               </div>
+	             </div>
+	             <div class='col-sm-5'>
+	               <div class='form-group'>
+	                 <label>Project Title</label>
+	                 <input class='form-control' name='title' placeholder='Title' th:value='${entity.title}'>
+	               </div>
+	             </div>
+	           </div>
+	           <div class='row'>
+	             <div class='col-sm-12'>
+	               <div class='form-group'>
+	                 <label>Short Description</label>
+	                 <textarea id='shortDesc-textarea' class='form-control' name='shortDesc' 
+		placeholder='Short Description' style='height:40px;max-height:60px' th:inline="text">[[${entity.shortDesc}]]</textarea>
+	               </div>
+	             </div>
+	           </div>
+	           <div class='row'>
+	             <div class='col-sm-12'>
+	               <div class='form-group'>
+	                 <label>Long Description</label>
+	                 <textarea id='longDesc-textarea' class='form-control' name='longDesc' 
+		placeholder='Long Description' style='height:100px;max-height:150px' th:inline="text">[[${entity.longDesc}]]</textarea>
+	                   </div>
+	                 </div>
+	               </div>
+		<div class='row'>
+			<div class='col-sm-3'>
+	             <div class='btn btn-default btn-file'>
+	               <i class='fas fa-paperclip'></i> Project Image
+	               <input type='file' name='attachment'>
+	             </div>
+	          		</div>
+	        		</div>
+	        		<div class='clearfix'></div>
+	</form>
+	     </div>
+	  <div class='card-footer'>
+	    <div class='float-right'>
+	      <a href='/admin/manageProjets.html' class='btn btn-default'><i class='fas fa-times'></i> Cancel</a>
+	      <button type='submit' class='btn btn-success'><i class='far fa-save'></i> Save</button>
+	    </div>
+	  </div>
+	</div>
+</section>
+</body>
+</html>

@@ -1,0 +1,95 @@
+
+<!DOCTYPE html>
+<html layout:decorate='~{light-layout/fragments/layout}'>
+<head>
+	<title>Project Info</title>
+</head>
+<body th:with="activeTopMenu='projectInfo'">
+<div class='section' layout:fragment='content'>
+	<div class='container'>
+		<!-- row -->
+		<div class='row'>
+			<!-- section title -->
+			<div class='col-md-12'>
+				<div class='section-title text-center'>
+					<h2 class='title'>Ongoing Projects</h2>
+					<p class='sub-title'>
+						Sustainability management is defined as the integration of environmental, social and economic considerations into business
+practices. Organization has a history of applying the principles of sustainable development and corporate
+social responsibility (CSR) using policies and best practices that have evolved over time.
+We work to improve the quality of life in communities where our employees live and work worldwide, and are fully committed to
+advancing social, environmental and economic sustainability.
+					</p>
+				</div>
+			</div>
+			<th:block th:each="entity : ${entityCol}">
+			<div class='col-md-4'>
+				<div class='causes'>
+					<div class='causes-img'>
+						<a th:href='@{/projectInfo.html?projectRefId=} + ${entity.RecordId}'>
+							<img th:src="@{../images/project-info/{path}(path=${entity.ImgUrlPath})}" th:title="${entity.Name}"/>
+						</a>
+					</div>
+					<div class='causes-progress'>
+						<div class='causes-progress-bar'>
+							<div th:style="@{width:} + ${entity.completed} + @{%}"></div>
+								<span th:text="${entity.completed} + @{%}"></span>
+							</div>
+						</div>
+						
+						<div>
+							<span class="causes-raised">
+							Raised: <strong th:text="${entity.fundRaised}"></strong>
+								<i class='fa fa-dollar'></i>
+							</span>
+							<span class="pull-right">
+								Goal: <strong><span th:text="${entity.targetAmt}"></span></strong>
+								<i class='fa fa-dollar'></i>
+							</span>
+						</div>
+					</div>
+					<div class='causes-content'>
+						<h3>
+							<a th:href='@{/projectInfo.html?projectRefId=} + ${entity.RecordId}' th:text="${entity.Name}"></a>
+						</h3>
+						<p th:text="${entity.ShortDesc}"></p>
+						<button class='btn btn-sm btn-success stripe-donate-btn' 
+							th:attr='data-key=${entity.RecordId}'>Donate Now !</button>	
+					</div>
+				</div>
+			</div>
+			</th:block>
+		</div>
+		<!-- /row -->
+		<div class="col-md-12" style='display:none;'>
+			<nav aria-label="Page navigation">
+			  <ul class="pagination">
+			    <li>
+			      <a href="#" aria-label="Previous">
+			        <span aria-hidden="true">&laquo;</span>
+			      </a>
+			    </li>
+			    <li><a href="#">1</a></li>
+			    <li><a href="#">2</a></li>
+			    <li><a href="#">3</a></li>
+			    <li><a href="#">4</a></li>
+			    <li><a href="#">5</a></li>
+			    <li>
+			      <a href="#" aria-label="Next">
+			        <span aria-hidden="true">&raquo;</span>
+			      </a>
+			    </li>
+			  </ul>
+			</nav>
+		</div>
+	</div>
+</div>
+<th:block layout:fragment="script">
+<script type='text/javascript'>
+$(document).ready(function(){
+	activateStripePopup('.stripe-donate-btn');
+});
+</script>
+</th:block>
+</body>
+</html>

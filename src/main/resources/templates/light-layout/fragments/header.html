@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<body>
+<nav id='main-navbar' th:fragment='header'>
+	<div class='container-fluid'>
+		<div class='navbar-header'>
+			<div class='navbar-brand'>
+				<a class='logo' href='index.html' id='top-logo-a'>
+					<img src='/images/logo.png' alt='logo'>
+				</a>	
+			</div>
+			<button class='navbar-toggle-btn'>
+				<i class='fa fa-bars'></i>
+			</button>
+		</div>
+
+		<div class='navbar-search' style='display:none;'>
+			<button class='search-btn'><i class='fa fa-gear'></i></button>
+			<div class='search-form'>
+				<form autocomplete='off' method='post' action='/login.html'>
+				  <div class='form-row align-items-center'>
+				    <div class='col-auto'>
+				      <div class='input-group'>
+					    <span class='input-group-addon'><i class='fa fa-user'></i></span>
+					    <input id='userNameTxt' type='text' class='form-control' name='userNameTxt' placeholder='Username'>
+					  </div>
+				    </div>
+				    <div class='col-auto'>
+				      <div class='input-group'>
+					    <span class='input-group-addon'><i class='fa fa-lock'></i></span>
+					    <input id='passwdTxt' type='text' class='form-control' name='Password' placeholder='Password'>
+					  </div>
+				    </div>
+				    <div class='col-auto pull-right'>
+				      <button type='submit' class='btn btn-primary mb-2'>Submit</button>
+				    </div>
+				  </div>
+				</form>
+			</div>
+		</div>
+		<ul class='navbar-menu nav navbar-nav navbar-right'>
+			<li th:class="${activeTopMenu == 'home'}? 'active' : ''">
+				<a href='/' title='Home'>Home</a>
+			</li>
+			<li th:class="${activeTopMenu == 'projectInfo'}? 'active' : ''">
+				<a href='/projectInfo.html' title='Ongoing Projects'>Ongoing Projects</a>
+			</li>
+		</ul>
+	</div>
+</nav>
+</body>
+</html>

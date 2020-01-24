@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html layout:decorate='~{admin/fragments/layout}'>
+<head>
+	<title>Admin Portal</title>
+</head>
+<body th:with="activeTopMenu='reports',activeLeftMenu='reports',bodyTopTitle='Reports'">
+<section layout:fragment='content-section' id='dashboardSection'>
+<div class='container-fluid'>
+	<div class='row'>
+	  <div class='col-12 pl-0 pr-0'>
+	     <!-- interactive chart -->
+	    <div class='card card-primary card-outline'>
+	      <div class='card-header'>
+	        <h3 class='card-title'>
+	           <i class='nav-icon fas fa-chart-line'></i>
+	           Donation Received
+	        </h3>
+	
+	        <div class='card-tools'>
+	          Live Report
+	          <div class='btn-group' id='realtime' data-toggle='btn-toggle'>
+	            <button type='button' class='btn btn-default btn-sm' data-toggle='on'>On</button>
+	            <button type='button' class='btn btn-default btn-sm' data-toggle='off'>Off</button>
+	          </div>
+	        </div>
+	      </div>
+	      <div class='card-body'>
+	        <div id='interactive' class='report-data-div'></div>
+	      </div>
+	      <!-- /.card-body-->
+	    </div>
+	    <!-- /.card -->
+	
+	  </div>
+	  <!-- /.col -->
+	</div>
+	<div class='row'>
+        <div class='col-6 pl-0'>
+		<!-- Line chart -->
+          <div class='card card-primary card-outline'>
+            <div class='card-header'>
+              <h3 class='card-title'>
+                <i class='far fa-chart-bar'></i>
+                Line Chart
+              </h3>
+
+              <div class='card-tools'>
+                <button type='button' class='btn btn-tool' data-card-widget='collapse'>
+                	<i class='fas fa-minus'></i>
+                </button>
+              </div>
+            </div>
+            <div class='card-body'>
+              <div id='line-chart' class='report-data-div'></div>
+            </div>
+            <!-- /.card-body-->
+          </div>
+          <!-- /.card -->
+        </div>
+        <!-- /.col -->
+
+        <div class='col-6 pr-0'>
+          <!-- Donut chart -->
+          <div class='card card-primary card-outline'>
+            <div class='card-header'>
+              <h3 class='card-title'>
+                <i class='far fa-chart-bar'></i>
+                Donut Chart
+              </h3>
+
+	            <div class='card-tools'>
+					<button type='button' class='btn btn-tool' data-card-widget='collapse'>
+						<i class='fas fa-minus'></i>
+	                </button>
+				</div>
+            </div>
+            <div class='card-body'>
+              <div id='donut-chart' class='report-data-div'></div>
+            </div>
+            <!-- /.card-body-->
+          </div>
+          <!-- /.card -->
+        </div>
+        <!-- /.col -->
+      </div>
+</div>
+</section>
+<th:block layout:fragment='script'>
+<script type='text/javascript' th:src='@{/js/jquery.flot.js}'></script>
+<script type='text/javascript' th:src='@{/js/jquery.flot.resize.min.js}'></script>
+<script type='text/javascript' th:src='@{/js/jquery.flot.pie.min.js}'></script>
+<script type='text/javascript'>
+function labelFormatter(label, series) {
+    return '<div style="font-size:13px; text-align:center; padding:2px; color: #fff; font-weight: 600;">'
+      + label
+      + '<br>'
+      + Math.round(series.percent) + '%</div>'
+}
+var realtime       = 'on';
+
+$(document).ready(function(){
+    var data = [],
+    totalPoints = 100
+
+	function getRandomData() {
+	  	if (data.length > 0) {
+			data = data.slice(1)
+	  	}
+	
+	  	while (data.length < totalPoints) {
+	    	var prev = data.length > 0 ? data[data.length - 1] : 50,
+	        y    = prev + Math.random() * 10 - 5;
+		    if (y < 0) {
+		      	y = 0
+		    } else if (y > 100) {
+		      	y = 100
+		    }
+	    	data.push(y);
+	  	}
+
+		var res = []
+		for (var i = 0; i < data.length; ++i) {
+		    res.push([i, data[i]])
+		}
+		return res;
+	}
+    
+    var interactive_plot = $.plot('#interactive', [{data: getRandomData()}],{
+        grid: {
+          borderColor: '#f3f3f3',
+          borderWidth: 1,
+          tickColor: '#f3f3f3'
+        },
+        series: {
+          color: '#3c8dbc',
+          lines: {
+            lineWidth: 2,
+            show: true,
+            fill: true,
+          },
+        },
+        yaxis: {
+          min: 0,
+          max: 100,
+          show: true
+        },
+        xaxis: {
+          show: true
+        }
+      }
+    );
+    
+    var updateInterval = 1000;
+    function update() {
+      	interactive_plot.setData([getRandomData()]);
+
+      	// Since the axes don't change, we don't need to call plot.setupGrid()
+    	interactive_plot.draw();
+      	if (realtime === 'on') {
+        	setTimeout(update, updateInterval);
+      	}
+	}
+
+    if (realtime === 'on') {
+    	$("#realtime .btn:nth-child(1)" ).addClass('btn-primary').removeClass('btn-default');
+      	update();
+    }
+
+    $('#realtime .btn').click(function () {
+      	if ($(this).data('toggle') === 'on') {
+    		$("#realtime .btn:nth-child(1)" ).addClass('btn-primary').removeClass('btn-default');
+    	  	$("#realtime .btn:nth-child(2)" ).addClass('btn-default').removeClass('btn-primary');
+		  	realtime = 'on';
+      	}
+      	else {
+    		$("#realtime .btn:nth-child(1)" ).addClass('btn-default').removeClass('btn-primary');
+    	  	$("#realtime .btn:nth-child(2)" ).addClass('btn-primary').removeClass('btn-default');
+          	realtime = 'off';
+      	}
+      	update();
+    });
+   
+    var sin = [], cos = [];
+	for (var i = 0; i < 12; i += 1) {
+		sin.push([i, Math.sin(i)])
+	  	cos.push([i, Math.cos(i)])
+	}
+	var line_data1 = {data : sin,color: '#3c8dbc'};
+	var line_data2 = {data : cos,color: '#00c0ef'};
+
+	$.plot('#line-chart', [line_data1, line_data2], {
+	      grid  : {
+	        hoverable  : true,
+	        borderColor: '#f3f3f3',
+	        borderWidth: 1,
+	        tickColor  : '#f3f3f3'
+	      },
+	      series: {
+	        shadowSize: 0,
+	        lines     : {
+	          show: true
+	        },
+	        points    : {
+	          show: true
+	        }
+	      },
+	      lines : {
+	        fill : false,
+	        color: ['#3c8dbc', '#f56954']
+	      },
+	      yaxis : {
+	        show: true
+	      },
+	      xaxis : {
+	        show: true
+	      }
+	});
+	//Initialize tooltip on hover
+    $('<div class="tooltip-inner" id="line-chart-tooltip"></div>').css({
+      position: 'absolute',
+      display : 'none',
+      opacity : 0.8
+    }).appendTo('body');
+
+	$('#line-chart').bind('plothover', function (event, pos, item) {
+
+	      if (item) {
+	        var x = item.datapoint[0].toFixed(2),
+	            y = item.datapoint[1].toFixed(2)
+
+	        if (typeof item.series.label === "undefined") {    
+	            item.series.label = 'Value'; 
+	        }
+	        $('#line-chart-tooltip').html(item.series.label + ' of ' + x + ' = ' + y)
+	          .css({
+	            top : item.pageY + 5,
+	            left: item.pageX + 5
+	          })
+	          .fadeIn(200)
+	      } else {
+	        $('#line-chart-tooltip').hide()
+	      }
+	});
+
+    var donutData = [
+      {
+        label: 'Series2',
+        data : 30,
+        color: '#3c8dbc'
+      },
+      {
+        label: 'Series3',
+        data : 20,
+        color: '#0073b7'
+      },
+      {
+        label: 'Series4',
+        data : 50,
+        color: '#00c0ef'
+      }
+    ];
+    
+    $.plot('#donut-chart', donutData, {
+      series: {
+        pie: {
+          show       : true,
+          radius     : 1,
+          innerRadius: 0.5,
+          label      : {
+            show     : true,
+            radius   : 2 / 3,
+            formatter: labelFormatter,
+            threshold: 0.1
+          }
+
+        }
+      },
+      legend: {
+        show: false
+      }
+    });
+});
+</script>
+</th:block>
+</body>
+</html>

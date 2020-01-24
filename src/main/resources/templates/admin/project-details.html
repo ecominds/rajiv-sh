@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html layout:decorate='~{admin/fragments/layout}'>
+<head>
+<title>Project Details</title>
+</head>
+<body th:with="activeTopMenu='manageProjects',activeLeftMenu='manageProjects',bodyTopTitle='Manage Project'">
+<section layout:fragment='content-section'>
+<div class='card card-info'>
+     <div class='card-header'>
+       <h3 class='card-title'>Projects Detail</h3>
+     </div>
+     <div class='card-body'>
+       <div class='row'>
+         <div class='col-12 col-md-12 col-lg-8 order-2 order-md-1'>
+           <div class='row'>
+             <div class='col-12 col-sm-4'>
+               <div class='info-box bg-light'>
+                 <div class='info-box-content'>
+                   <span class='info-box-text text-center text-muted'>Estimated budget</span>
+                   <span class='info-box-number text-center text-muted mb-0'>85000 $</span>
+                 </div>
+               </div>
+             </div>
+             <div class='col-12 col-sm-4'>
+               <div class='info-box bg-light'>
+                 <div class='info-box-content'>
+                   <span class='info-box-text text-center text-muted'>Total amount raised</span>
+                   <span class='info-box-number text-center text-muted mb-0'>35000 $</span>
+                 </div>
+               </div>
+             </div>
+             <div class='col-12 col-sm-4'>
+               <div class='info-box bg-light'>
+                 <div class='info-box-content'>
+                   <span class='info-box-text text-center text-muted'>Total Amount Spent</span>
+                   <span class='info-box-number text-center text-muted mb-0'>15846 $</span>
+                 </div>
+               </div>
+             </div>
+           </div>
+           <div class='row project-details'>
+             <div class='col-12'>
+               <h4>Recent Activity</h4>
+                 <div class='post'>
+                   <div class='user-block'>
+                     <img class='img-circle img-bordered-sm' src='/images/users/user4-128x128.png' alt='userName'>
+                     <span class='username'>
+                       <a href='#'>Jonathan Burke Jr.</a>
+                     </span>
+                     <span class='description'>Shared publicly - 7:45 PM today</span>
+                   </div>
+                   <!-- /.user-block -->
+                   <p>
+                     Lorem ipsum represents a long-held tradition for designers,
+                     typographers and the like. Some people hate it and argue for
+                     its demise, but others ignore.
+                   </p>
+
+                   <p>
+                     <a href='#' class='link-black text-sm'><i class='fas fa-link mr-1'></i> Demo File 1 v2</a>
+                   </p>
+                 </div>
+
+                 <div class='post clearfix'>
+                   <div class='user-block'>
+                     <img class='img-circle img-bordered-sm' src='/images/users/user3-128x128.png' alt='userName'>
+                     <span class='username'>
+                       <a href='#'>Sarah Ross</a>
+                     </span>
+                     <span class='description'>Sent you a message - 3 days ago</span>
+                   </div>
+                   <!-- /.user-block -->
+                   <p>
+                     Lorem ipsum represents a long-held tradition for designers,
+                     typographers and the like. Some people hate it and argue for
+                     its demise, but others ignore.
+                   </p>
+                   <p>
+                     <a href='#' class='link-black text-sm'><i class='fas fa-link mr-1'></i> Demo File 2</a>
+                   </p>
+                 </div>
+				</div>
+           </div>
+         </div>
+         <div class='col-12 col-md-12 col-lg-4 order-1 order-md-2'>
+           <div class='user-block'>
+             <img class='img-circle img-bordered-sm' src='/images/project-info/img-002.jpg' alt='projectImage'>
+             <span class='username'>
+               <a href='#'>Project Title</a>
+             </span>
+             <span class='description'>project short description</span>
+           </div>
+           <div class='mt-4 clearfix'></div>
+           <p class='text-muted'>Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua butcher retro keffiyeh dreamcatcher synth. Cosby sweater eu banh mi, qui irure terr.</p>
+           <h5 class='mt-5 text-muted'>Project files</h5>
+           <ul class='list-unstyled'>
+             <li>
+               <a href='' class='btn-link text-secondary'><i class='far fa-fw fa-file-word'></i> Functional-requirements.docx</a>
+             </li>
+             <li>
+               <a href='' class='btn-link text-secondary'><i class='far fa-fw fa-file-pdf'></i> UAT.pdf</a>
+             </li>
+             <li>
+               <a href='' class='btn-link text-secondary'><i class='far fa-fw fa-envelope'></i> Email-from-flatbal.mln</a>
+             </li>
+             <li>
+               <a href='' class='btn-link text-secondary'><i class='far fa-fw fa-image '></i> Logo.png</a>
+             </li>
+             <li>
+               <a href='' class='btn-link text-secondary'><i class='far fa-fw fa-file-word'></i> Contract-10_12_2014.docx</a>
+             </li>
+           </ul>
+           <div class='text-center mt-5 mb-3'>
+           		<button class='btn btn-sm btn-primary'>Add files</button>
+             	<button  class='btn btn-sm btn-warning toastsBtn'>Report contact</button>
+           </div>
+         </div>
+       </div>
+     </div>
+</div>
+</section>
+<th:block layout:fragment="script">
+<script type='text/javascript'>
+$(document).ready(function(){
+	$('.toastsBtn').click(function() {
+	    $(document).Toasts('create', {
+	        title: 'Please wait...',
+	        autohide: true,
+	        delay: 8000,
+	        icon: 'fas fa-envelope fa-lg',
+	        body: 'Your report is being generated'
+		})
+	});	
+});
+</script>
+</th:block>
+</body>
+</html>

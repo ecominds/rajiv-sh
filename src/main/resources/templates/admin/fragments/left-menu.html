@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<body>
+<aside id='leftMenuTopWrapper' class='main-sidebar elevation-4 sidebar-light-info sidebar-no-expand' th:fragment='left-menu-section'>
+<a href='/' class='brand-link text-md'>
+  <img src='/images/logo-64.png' alt='GreenGuardians' class='brand-image img-circle img-circle-8 elevation-3'
+       style='opacity: .8'>
+  <span class='brand-text font-weight-bold accent-olive'>Green Guardians</span>
+</a>
+<div class='sidebar'>
+	<div class='user-panel mt-3 pb-2 d-flex'>
+       <div class='image'>
+         <img src='/images/users/rajiv-128x128.jpg' class='img-circle elevation-2' alt='Rajiv'>
+       </div>
+       <div class='info'>
+         <a href='/admin/manageProfile.html' class='d-block'>Rajiv Kumar</a>
+       </div>
+    </div>
+	<nav class='mt-2'>
+    	<ul class='nav nav-pills nav-sidebar flex-column' data-widget='treeview' role='menu' data-accordion='false'>
+			<li class='nav-header nav-link active mb-2'>Application Config</li>
+			<li th:class="${activeTopMenu == 'home'}? 'nav-item active' : 'nav-item'">
+				<a th:class="${activeLeftMenu == 'index'}? 'nav-link active' : 'nav-link'" 
+					href='/admin/index.html' title='Dashboard'>
+					<i class='nav-icon fas fa-tachometer-alt'></i>
+					<p>	
+						Dashboard
+					</p>
+				</a>
+			</li>
+			<li th:class="${activeTopMenu == 'reports'}? 'nav-item active' : 'nav-item'">
+				<a th:class="${activeLeftMenu == 'reports'}? 'nav-link active' : 'nav-link'" href='/admin/reports.html'
+					title='Reports'>
+			      	<i class='nav-icon fas fa-chart-line'></i>
+			      	<p>
+			      		Reports
+			      		<span class='badge badge-success right'>NEW</span>
+			     	</p> 	
+			    </a>
+			</li>
+			<li th:class="${activeTopMenu == 'manageProjects'}? 'nav-item active' : 'nav-item'">
+				<a th:class="${activeLeftMenu == 'manageProjects'}? 'nav-link active' : 'nav-link'" 
+					href='/admin/manageProjects.html' title='Manage Projects'>
+					<i class='nav-icon fas fa-calendar-alt'></i>
+					<p>	
+						Manage Project 
+						<span class='badge badge-info right'>3</span>
+					</p>
+				</a>
+			</li>
+			<li th:class="${activeTopMenu == 'queryEditor'}? 'nav-item active' : 'nav-item'" style='display:none;'>
+				<a th:class="${activeLeftMenu == 'queryEditor'}? 'nav-link active' : 'nav-link'" 
+					href='/admin/queryEditor.html' title='Query Editor'>
+					<i class='nav-icon fas fa-edit'></i>
+					<p>	
+						Query Editor
+					</p>
+				</a>
+			</li>
+			<li th:class="${activeTopMenu == 'team-members'}? 'nav-item active' : 'nav-item'">
+				<a th:class="${activeLeftMenu == 'team-members'}? 'nav-link active' : 'nav-link'" 
+					href='/admin/teamMembers.html' title='Team Members'>
+					<i class='nav-icon fas fa-users'></i>
+					<p>	
+						Team Members
+					</p>
+				</a>
+			</li>
+			<li th:class="${activeTopMenu == 'app-settings'}? 'nav-item active' : 'nav-item'" style='display:none;'>
+				<a th:class="${activeLeftMenu == 'app-settings'}? 'nav-link active' : 'nav-link'" href='/admin/settings.html'
+					title='Application Settings'>
+					<i class='nav-icon fas fa-cogs'></i>
+					<p>	
+						App Settings
+					</p>
+				</a>
+			</li>
+		</ul> 
+    </nav>
+</div>
+</aside>
+</body>
+</html>

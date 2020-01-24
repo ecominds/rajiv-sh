@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html layout:decorate='~{admin/fragments/layout}'>
+<head>
+<title>Manage Projects</title>
+</head>
+<body th:with="activeTopMenu='manageProjects',activeLeftMenu='manageProjects',bodyTopTitle='Manage Project'">
+<section layout:fragment='content-section'>
+	 <!-- Default box -->
+      <div class='card card-primary card-outline'>
+        <div class='card-header'>
+          <h2 class='card-title'>Project List</h2>
+          <div class='card-tools'>
+            <button type='button' class='btn btn-tool' data-card-widget='collapse' data-toggle='tooltip' title='Collapse'>
+				<i class='fas fa-minus'></i>
+            </button>
+          </div>
+        </div>
+        <div class='card-body p-0'>
+          <table class='table table-striped projects'>
+              <thead>
+                  <tr>
+                      <th style='width: 20%'>
+                          Project Name
+                      </th>
+                      <th style='width: 9%'>
+                          Target
+                      </th>
+                      <th style='width: 28%'>
+                          Top Sponsors
+                      </th>
+                      <th>
+                          Project Progress
+                      </th>
+                      <th style='width: 20%'></th>
+                  </tr>
+              </thead>
+              <tbody>
+              <th:block th:each="entity : ${entityCol}">
+                  <tr>
+                      <td>
+                          <a th:href='@{/admin/projectDetails.html?projectRefId=} + ${entity.RecordId}' th:text="${entity.Name}"></a>
+                          <br/>
+                          <small th:text="@{Start Date : } + ${#dates.format(entity.StartDate, 'dd-MMM-yyyy')}"></small>
+                      </td>
+                      <td th:text="${entity.targetAmt} + @{$}"></td>
+                      <td>
+                          <ul class='list-inline'>
+                              <li class='list-inline-item' th:each="sponser : ${entity.sponsorCol}">
+                                  <img alt='TopSponsor' class='table-avatar' th:src='@{/images/users/} + ${sponser.imgUrlPath}'>
+                              </li>
+	                       </ul>
+                      </td>
+                      <td class='project_progress'>
+                          <div class='progress progress-sm'>
+ 								<div class='progress-bar bg-green' role='progressbar' aria-volumemin='0' aria-volumemax='100' 
+ 									th:attr="aria-volumenow='\'' + #{entity.completed}" th:style="@{width:} + ${entity.completed} + @{%}"></div>                         	
+                          </div>
+                          <small th:text="${entity.completed} + @{%}"></small>
+                      </td>
+                      <td class='project-actions text-right'>
+                          <div class='btn-group btn-group-sm'>
+	                        <a th:href='@{/admin/projectDetails.html?projectRefId=} + ${entity.RecordId}' class='btn btn-info'>
+	                        	<i class='fas fa-eye'></i>
+	                        </a>
+	                        <a th:href='@{/admin/editProject.html?projectRefId=} + ${entity.RecordId}' class='btn btn-primary'>
+	                        	<i class='fas fa-edit'></i>
+	                        </a>
+	                      </div>
+                      </td>
+                  </tr>
+              </th:block>    
+              </tbody>
+          </table>
+        </div>
+      </div>
+</section>
+</body>
+</html>

@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html layout:decorate='~{light-layout/fragments/layout}'>
+<head>
+<title>Home</title>
+</head>
+<body th:with="activeTopMenu='home'">
+	<section layout:fragment='content'>
+		<!-- HOME OWL -->
+		<div id='home-owl' class='owl-carousel owl-theme'>
+			<!-- home item -->
+			<div class='home-item'>
+				<!-- section background -->
+				<div class='section-bg'
+					style='background-image: url(../images/banners/bg-01.jpg);'></div>
+				<!-- /section background -->
+
+				<!-- home content -->
+				<div class='home eco'>
+					<div class='container'>
+						<div class='row'>
+							<div class='col-md-8'>
+								<div class='home-content'>
+									<h1>Together for Sustainability</h1>
+									<p class='lead'>
+										Accelerating global progress towards more sustainable future.
+									</p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- home item -->
+			<div class='home-item'>
+				<!-- section background -->
+				<div class='section-bg'
+					style='background-image: url(../images/banners/bg-02.jpg);'></div>
+				<!-- /section background -->
+
+				<!-- home content -->
+				<div class='home wind-power'>
+					<div class='container'>
+						<div class='row'>
+							<div class='col-md-8'>
+								<div class='home-content'>
+									<h1>Wind Power</h1>
+									<p class='lead'>
+										Harnessing power from the wind is one of
+										the cleanest and most sustainable ways to generate electricity
+										as it produces no toxic pollution.
+									</p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- /home content -->
+			</div>
+		</div>
+
+		<div id='numbers' class='section'>
+			<!-- container -->
+			<div class='container'>
+				<!-- row -->
+				<div class='row' id="pCustom1">
+					<!-- number -->
+					<div class='col-md-4 col-sm-6'>
+						<div class='number item'>
+							<i class='fa fa-tasks'></i>
+							<h3 th:text='${txnDataReport.Project}' id='h3Project'></h3>
+							<span class="spanCustom">Projects</span>
+						</div>
+					</div>
+					<div class='col-md-4 col-sm-6'>
+						<div class='number item'>
+							<i class='fa fa-gift'></i>
+							<h3 th:text='${txnDataReport.UserCount}' id='h3UserCount'></h3>
+							<span class="spanCustom">Sponsors</span>
+						</div>
+					</div>
+					<div class='col-md-4 col-sm-6'>
+						<div class='number item'>
+							<i class='fa fa-dollar'></i>
+							<h3 th:text='${txnDataReport.Amount}' id='h3Amount'></h3>
+							<span class="spanCustom">Donated</span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div id='featuredProjects' class='section'>
+			<!-- container -->
+			<div class='container'>
+				<!-- row -->
+				<div class='row'>
+					<!-- section title -->
+					<div class='col-md-12'>
+						<div class='section-title text-center'>
+							<h2 class='title'>Ongoing Projects</h2>
+							<p class='sub-title'>Sustainability management is defined as
+								the integration of environmental, social and economic
+								considerations into business practices. Organization has a
+								history of applying the principles of sustainable development
+								and corporate social responsibility (CSR) using policies and
+								best practices that have evolved over time. We work to improve
+								the quality of life in communities where our employees live and
+								work worldwide, and are fully committed to advancing social,
+								environmental and economic sustainability.</p>
+						</div>
+					</div>
+					<!-- section title -->
+					<div id='donation-msg'></div>
+					<th:block th:each="entity : ${entityCol}">
+						<div class='col-md-4'>
+							<div class='causes'>
+								<div class='causes-img'>
+									<a
+										th:href='@{/projectInfo.html?projectRefId=} + ${entity.RecordId}'>
+										<img
+										th:src="@{../images/project-info/{path}(path=${entity.ImgUrlPath})}"
+										th:title="${entity.Name}" />
+									</a>
+								</div>
+								<div class='causes-content'>
+									<h3>
+										<a
+											th:href='@{/projectInfo.html?projectRefId=} + ${entity.RecordId}'
+											th:text="${entity.Name}"></a>
+									</h3>
+									<p th:text="${entity.ShortDesc}"></p>
+
+									<button class='btn btn-sm btn-success stripe-donate-btn'
+										th:attr='data-key=${entity.RecordId}'>Donate Now !</button>
+								</div>
+							</div>
+						</div>
+					</th:block>
+				</div>
+				<!-- /row -->
+			</div>
+			<!-- /container -->
+		</div>
+
+		<div id='testimonial' class='section'>
+			<!-- container -->
+			<div class='container'>
+				<!-- row -->
+				<div class='row'>
+					<!-- section title -->
+					<div class='col-md-8 col-md-offset-2'>
+						<div class='section-title text-center'>
+							<h2 class='title'>Testimonial</h2>
+						</div>
+					</div>
+					<!-- section title -->
+
+					<div class='col-md-12'>
+						<div>
+							<div>
+								<h3 class="cause-custom">"Simple and inspiring. We need to
+									make people understand that there are still people with
+									integrity and high spirits in keeping the world in good shape
+									and harmony."</h3>
+								<p style="font-size: 17px">Margaret Mitchel, 12th Sept 2019</p>
+
+							</div>
+						</div>
+					</div>
+
+					<div class="col-md-12">
+						<hr>
+					</div>
+
+					<div class='col-md-12'>
+						<div>
+							<div>
+								<h3 class="cause-custom">"It is great to have this resource
+									to come to for inspiration and to reinforce your knowledge of
+									others working towards sustainability."</h3>
+								<p style="font-size: 17px">Michael Crichton, 15th Aug 2019</p>
+
+							</div>
+						</div>
+					</div>
+					<div class="col-md-12">
+						<hr>
+					</div>
+					<div class='col-md-12'>
+						<div>
+							<div>
+								<h3 class="cause-custom">"This is an excellent project to
+									pool all of the experts in one platform to jointly collaborate
+									to contribute more effectively in making this world more
+									sustainable."</h3>
+								<p style="font-size: 17px">Jane Austen, 26th Dec 2018</p>
+
+							</div>
+						</div>
+					</div>
+
+
+				</div>
+				<!-- /row -->
+			</div>
+			<!-- /container -->
+		</div>
+		<!-- /CAUSESS -->
+
+	</section>
+<th:block layout:fragment='footer-embed'>
+	<div th:replace='light-layout/fragments/footer-ext :: footer-ext'></div>
+</th:block>
+<th:block layout:fragment="script">
+<script type='text/javascript'>
+var activateRenderer = false;
+$(document).ready(function(){
+	$('#btnFooterSubscribe').click(function(){
+		var emailVal = $('#subscriberEmail').val();
+		$.get("/subscriber/add", { emailAddress:emailVal} ,function(data){
+			$('.footer-newsletter').hide();
+			toastr.success('Thank you for the subscription');
+	    });
+	});
+	
+	activateStripePopup('.stripe-donate-btn');
+	
+	if(activateRenderer){
+		setInterval(function(){
+			$.get("/api/getDataCounter", { emailAddress:'test'}, function(data){
+				$('#h3Project').html(data.project);
+				$('#h3UserCount').html(data.userCount);
+				$('#h3Amount').html(data.amount);
+		    });
+		}, 5000);
+	}
+});
+</script>
+	</th:block>
+</body>
+</html>
